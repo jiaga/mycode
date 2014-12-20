@@ -1,7 +1,9 @@
 /*
  ***************************************************************
- * File Name:    merge_sort.c
+ * File Name:    test_sort.c
  * Declaration:  
+ *      测试各种排序算法的用时
+ *      用法 ./test_sort 100000
  * Author:       jiaga
  * Mail:         jiaga@qq.com
  * Created Time: 2014年07月13日 星期日 00时07分13秒
@@ -41,6 +43,7 @@ void quicksort          (int* arr,      int low,        int high);
 void HeapAdjust         (int *array,    int i,          int nLength);
 void HeapSort           (int *array,    int start,      int end);
 
+/* 计数排序没改成统一的参数样式  单独测试 */
 int counting_sort(int *A, int *B, int len, int k);
 int cnt_sort(int *A, int *B, int len, int k);
 
