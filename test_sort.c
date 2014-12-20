@@ -41,11 +41,18 @@ void quicksort          (int* arr,      int low,        int high);
 void HeapAdjust         (int *array,    int i,          int nLength);
 void HeapSort           (int *array,    int start,      int end);
 
+int counting_sort(int *A, int *B, int len, int k);
+int cnt_sort(int *A, int *B, int len, int k);
 
 int main(int argc, char **argv)
 {
-        int* test_data;
+        int* test_data, *B;
         int len;
+
+        struct timeval start;
+        struct timeval end;
+        unsigned long run_time;
+
 
         len = get_argv(argv, argc);
         test_data = (int*)malloc(sizeof(int) * len);
@@ -63,6 +70,54 @@ int main(int argc, char **argv)
 
         test_sort(test_data, 0, len-1);
 
+        /* test counting sort */
+        /* 计数排序不改动原数组，用B数组存储排序好的数据 */
+        B = (int*)malloc(sizeof(int) * len);
+        if (B == NULL) {
+                printf("malloc() error in main()!\n");
+                return -1;
+        }
+
+        init_data(test_data, len, RAND);
+        init_data(B, len, WORST_CASE);
+        if (len > 9) {
+                print_int_arr(test_data, 0, 9);
+                print_int_arr(B, 0, 9);
+        }
+        gettimeofday(&start, NULL);     /* 获取开始时间 */
+        // counting_sort(test_data, B, len, len);
+        cnt_sort(test_data, B, len, len);
+        gettimeofday(&end, NULL);       /* 获取结束时间 */
+        /* 计算时间差(排序函数所用时间) */
+        run_time = 1000000 * (end.tv_sec - start.tv_sec) + 
+                             (end.tv_usec - start.tv_usec);
+        printf("Counting_sort R used: %lu microsecond.\n", run_time);
+        if (len > 9) {
+                print_int_arr(test_data, 0, 9);
+                print_int_arr(B, 0, 9);
+        }
+
+        init_data(test_data, len, WORST_CASE);
+        init_data(B, len, WORST_CASE);
+        if (len >9) {
+                print_int_arr(test_data, 0, 9);
+                print_int_arr(B, 0, 9);
+        }
+        gettimeofday(&start, NULL);     /* 获取开始时间 */
+        // counting_sort(test_data, B, len, len);
+        cnt_sort(test_data, B, len, len);
+        gettimeofday(&end, NULL);       /* 获取结束时间 */
+        /* 计算时间差(排序函数所用时间) */
+        run_time = 1000000 * (end.tv_sec - start.tv_sec) + 
+                             (end.tv_usec - start.tv_usec);
+        printf("Counting_sort W used: %lu microsecond.\n", run_time);
+        if (len > 9) {
+                print_int_arr(test_data, 0, 9);
+                print_int_arr(B, 0, 9);
+        }
+        free(B);
+        /* 计数排序测试结束 */
+        
         free(test_data);
 
         return 0;
@@ -116,7 +171,7 @@ void test_sort(int* arr, int low, int high)
                                 };
 
         printf("n = %d\n", high+1);
-        for (i = 0; i < 6; i++) {
+        for (i = 3; i < 6; i++) {       /* i=3 跳过前面时间长的算法 */
                 printf("%s\n", func_name[i]);
                 init_data(arr, high+1, RAND);         /* 随机数据 */
                 printf("Random data: ");
@@ -127,6 +182,8 @@ void test_sort(int* arr, int low, int high)
                         print_int_arr(arr, low, 9);
                 printf("%lu microsecond.\n", run_time);
 
+                if (i == 4 )    /* 跳过快排的最坏情况 时间太久了 */
+                        continue;
                 init_data(arr, high+1, WORST_CASE);   /* 逆序     */
                 printf("Worst case : ");
                 if (high >=9)
@@ -163,7 +220,7 @@ void init_data(int* arr, int n, int init_type)
 
         if (init_type == RAND) {                /* 用随机数据初始化 */
                 while (i < n)
-                        arr[i++] = rand();
+                        arr[i++] = rand() % n;
         } else if (init_type == WORST_CASE) {   /* 用逆序初始化     */
 
                 while (i < n)
@@ -364,3 +421,63 @@ void HeapSort(int *array, int start, int end)
         }
 }
 /* 堆排序结束 */
+
+/* 计数排序  抄书上的 还没改好 */
+int counting_sort(int *A, int *B, int len, int k)
+{
+        int i, j;
+        int *C;
+
+        /* C数组大小是假设原数组数据的最大值+1 */
+        C = (int *)malloc(sizeof(int) * (k+1));
+        if (C == NULL) {
+                puts("error in counting_sort malloc for C");
+                return -1;
+        }
+        for (i = 0; i <= k; i++)
+                C[i] = 0;
+        for (j = 0; j < len; j++)
+                C[A[j]] = C[A[j]] + 1;
+        /* C[i] now contains the number of elements equal to i */
+        for (i = 0; i <= k; i++)
+                C[i] = C[i] + C[i-1];
+        /* C[i] now contains the number of elements less than or equal to i */
+        for (j = len-1; j > 0; j--) {
+                B[C[A[j]]] = A[j];
+                C[A[j]] = C[A[j]] - 1;
+        }
+        free(C);
+
+        return 0;
+}
+/* 网络上抄的 改下参数就能用…… */
+int cnt_sort(int *A, int *B, int len, int k)
+{
+        int i, value, pos;
+        int *C;
+        
+        /* C数组大小是假设原数组数据的最大值+1 */
+        C = (int *)malloc(sizeof(int) * (k+1));
+        if (C == NULL) {
+                puts("error in counting_sort malloc for C");
+                return -1;
+        }
+        for(i=0; i<=k; i++) {
+                C[i] = 0;
+        }
+        for(i=0; i< len; i++) {
+                C[A[i]] ++;
+        }
+        for(i=1; i<=k; i++) {
+                C[i] = C[i] + C[i-1];
+        }
+        for(i=len-1; i>=0; i--) {
+                value = A[i];
+                pos = C[value];
+                B[pos-1] = value;
+                C[value]--;
+        }
+        free(C);
+
+        return 0;
+}
