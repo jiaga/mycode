@@ -14,7 +14,7 @@
 
 #define LEN 100
 
-static void next(char *p, int *r, int len)
+void next(char *p, int *r, int len)
 {
         int m = strlen(p);
         int k = 0;
@@ -63,4 +63,50 @@ char * kmp(char *t, char *p)
         free(r);
 
         return NULL;
+}
+
+char* get_str(char* str, int len)
+{
+        char* find;
+        
+        if (fgets(str, len, stdin) == NULL) {
+                return NULL;
+        }
+        find = strchr(str, '\n');
+        if (find)
+                *find = '\0';
+        return str;
+}
+
+void test_data()
+{
+        char t[LEN];
+        char p[LEN];
+        char *find;
+        int i;
+
+        printf("Input T: ");
+        get_str(t, LEN);
+        printf("Input P: ");
+        get_str(p, LEN);
+
+        find = kmp(t, p);
+        if (find) {
+                printf("T: %s\nP: ", t);
+                for (i = 0; i < find - t; i++)
+                        putchar(' ');
+                printf("%s\n", p);
+        } else {
+                printf("Not found!\n");
+        }
+
+        puts("\n\n");
+}
+
+int main(void)
+{
+        while (1)
+                test_data();
+
+        return 0;
 }

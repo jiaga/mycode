@@ -445,7 +445,7 @@ int counting_sort(int *A, int *B, int len, int k)
         for (i = 0; i <= k; i++)
                 C[i] = C[i] + C[i-1];
         /* C[i] now contains the number of elements less than or equal to i */
-        for (j = len-1; j > 0; j--) {
+        for (j = len-1; j >= 0; j--) {
                 B[C[A[j]]] = A[j];
                 C[A[j]] = C[A[j]] - 1;
         }

@@ -24,6 +24,7 @@ int find_ele_index(int *arr, int len, int value)
         return -1;
 }
 
+/* 将两个整数按位相加， 结果存与 数组中,数组由调用函数提供*/
 void add_n_bit_arr(int *a, int *b, int *c, int len)
 {
         int i;
@@ -47,7 +48,7 @@ void insertion_sort(int *arr, int len)
         int j;
         int key;
 
-        for (j = 1; j <len; j++) {
+        for (j = 1; j < len; j++) {
                 key = arr[j];
                 i = j - 1;
                 while (i >= 0 && arr[i] < key) {

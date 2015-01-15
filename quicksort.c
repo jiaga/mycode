@@ -12,11 +12,12 @@
 
 #define LEN 16
 
-#define __swap(type, a, b)      \
+#define __swap(type, a, b)      ({\
                 type tmp;       \
                 tmp = (a);      \
                 (a) = (b);      \
-                (b) = tmp; 
+                (b) = tmp;    })
+
 
 void swap(int *a, int *b)
 {
