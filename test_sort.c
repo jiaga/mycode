@@ -10,8 +10,7 @@
  ***************************************************************
  */
 
-/* new test */
-/* new one */
+/* change */
 
 #include <stdio.h>
 #include <stdlib.h>
