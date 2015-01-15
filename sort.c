@@ -9,6 +9,8 @@
  ***************************************************************
  */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "base.h"
 
 /* 冒泡排序 */
@@ -18,8 +20,9 @@ void bubble_sort(int *arr, int len)
 
         for (i = 0; i < len-1; i++) {
                 for (j = i+1; j < len; j++) {
-                        if (arr[i] > arr[j])
+                        if (arr[i] > arr[j]) {
                                 swap_type_of(int , arr[i], arr[j]);
+                        }
                 }
         }
 }
@@ -44,7 +47,7 @@ void insertion_sort(int *arr, int len)
 }
 
 /* quicksort */
-extern static int partition(int *arr, int p, int r);
+static int partition(int *arr, int p, int r);
 void quicksort(int *arr, int p, int r)
 {
         int q;
@@ -77,7 +80,7 @@ static int partition(int *arr, int p, int r)
 }
 
 /* 归并排序 */
-extern static void merge(int *arr, int start, int middle, int end);
+static void merge(int *arr, int start, int middle, int end);
 void merge_sort(int *arr, int start, int end)
 {
         int middle;
@@ -126,7 +129,7 @@ static void merge(int *arr, int start, int middle, int end)
 /* 归并排序结束 */
 
 /* 堆排序 */
-extern static void HeapAdjust(int *array, int i, int nLength);
+static void HeapAdjust(int *array, int i, int nLength);
 void HeapSort(int *array, int start, int end)
 {
         int i;
@@ -168,7 +171,7 @@ static void HeapAdjust(int *array, int i, int nLength)
 /* 堆排序结束 */
 
 /* 计数排序 */
-int counting_sort(int *arr, int len, int max_value)
+int counting_sort(int *A, int len, int max_value)
 {
         int i, j;
         int *B, *C;
@@ -197,6 +200,53 @@ int counting_sort(int *arr, int len, int max_value)
                 B[C[A[j]]] = A[j];
                 C[A[j]] = C[A[j]] - 1;
         }
+
+        /* 将结果转给源数组 */
+        for(i = 0; i < len; i++)
+                A[i] = B[i];
+        free(B);
+        free(C);
+
+        return 0;
+}
+
+/* 网络上抄的 改下参数就能用…… */
+int cnt_sort(int *A, int len, int k)
+{
+        int i, value, pos;
+        int *B, *C;
+        
+        /* B数组存储结果 */
+        B = (int*)malloc(sizeof(int) * len);
+        if (B == NULL) {
+                puts("error in counting_sort malloc for B");
+                return -1;
+        }
+        /* C数组大小是假设原数组数据的最大值+1 */
+        C = (int *)malloc(sizeof(int) * (k+1));
+        if (C == NULL) {
+                puts("error in counting_sort malloc for C");
+                return -1;
+        }
+        for(i=0; i<=k; i++) {
+                C[i] = 0;
+        }
+        for(i=0; i< len; i++) {
+                C[A[i]] ++;
+        }
+        for(i=1; i<=k; i++) {
+                C[i] = C[i] + C[i-1];
+        }
+        for(i=len-1; i>=0; i--) {
+                value = A[i];
+                pos = C[value];
+                B[pos-1] = value;
+                C[value]--;
+        }
+        /* 将结果转给源数组 */
+        for(i = 0; i < len; i++)
+                A[i] = B[i];
+        free(B);
         free(C);
 
         return 0;

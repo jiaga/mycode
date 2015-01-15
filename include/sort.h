@@ -14,3 +14,4 @@ void quicksort(int *arr, int p, int r);
 void merge_sort(int *arr, int start, int end);
 void HeapSort(int *array, int start, int end);
 int counting_sort(int *arr, int len, int max_value);
+int cnt_sort(int *A, int len, int k);
