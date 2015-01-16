@@ -8,8 +8,8 @@
  ***************************************************************
  */
 
-#ifndef _HEAP_SORT_H_
-#define _HEAP_SORT_H_
+#ifndef _HEAP__H_
+#define _HEAP__H_
 
 void heap_sort(int *A, int n);
 

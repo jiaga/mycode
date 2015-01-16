@@ -38,11 +38,30 @@ void insertion_sort(int *arr, int len)
         for (j = 1; j < len; j++) {
                 key = arr[j];
                 i = j - 1;
-                while (i >= 0 && arr[i] < key) {
+                while (i >= 0 && arr[i] > key) {
                         arr[i+1] = arr[i];
                         --i;
                 }
                 arr[i+1] = key;
+        }
+}
+
+/* 选择排序 */
+void select_sort(int *arr, int len)
+{
+        int i;
+        int j;
+        int k;
+
+        for (i = 0; i < len-1; i++) {
+                k = i;
+                for (j = i+1; j < len; j++) {
+                        if (arr[k] > arr[j])
+                                k = j;
+                }
+                if (i != k) {
+                        swap_type_of(int, arr[i], arr[k]);
+                }
         }
 }
 
@@ -130,15 +149,15 @@ static void merge(int *arr, int start, int middle, int end)
 
 /* 堆排序 */
 static void HeapAdjust(int *array, int i, int nLength);
-void HeapSort(int *array, int start, int end)
+void HeapSort(int *array, int len)
 {
         int i;
         /* 调整序列的前半部分元素，调整完之后第一个元素是序列的最大的元素 */
         /* length/2-1是最后一个非叶节点，此处"/"为整除 */
-        for(i = (end+1)/2-1; i >= start; --i)
-                HeapAdjust(array, i, end+1);
+        for(i = len/2-1; i >= 0; --i)
+                HeapAdjust(array, i, len);
         /* 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素 */
-        for(i = end; i > 0; --i)
+        for(i = len-1; i > 0; --i)
         {
                 /* 把第一个元素和当前的最后一个元素交换， */
                 /* 保证当前的最后一个位置的元素都是在现在的这个序列之中最大的 */
