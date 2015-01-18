@@ -98,5 +98,3 @@ char * get_cs(void)
                 
         }
 }
-
-
