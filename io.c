@@ -72,6 +72,7 @@ int getline(void)
         }
 }
 
+/* 真难搞 */
 #define STR_NODE_LEN 1024
 typedef struct string{
         char *str;
