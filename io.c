@@ -63,39 +63,16 @@ char *get_string(char *str, int len)
         }
 }
 
-int getline(void)
+int getline(char * str, int len)
 {
-        int cnt = 0;
+        int i = 0;
+        char ch;
 
-        while (getchar() != '\n') {
-                
-        }
-}
+        while (--len > 0 && (ch = getchar()) != 'EOF' && ch != '\n')
+                str[i++] = ch;
+        if (ch == '\n')
+                str[i++] = ch;
+        str[i] = '\0';
 
-/* 真难搞 */
-#define STR_NODE_LEN 1024
-typedef struct string{
-        char *str;
-        struct string *next;
-}String;
-
-String * get_str_node(String *s_node)
-{
-        s_node->str = (char *)malloc(STR_NODE_LEN);
-        if (str == NULL)
-                return NULL;
-        while (get_string(str_node.str, STR_NODE_LEN) != NULL)
-                add_to_list();
-        return s_node;
-}
-
-char * get_cs(void)
-{
-        char *str;
-        chr ch;
-
-
-        while ((ch = getchar()) != EOF) {
-                
-        }
+        return i;
 }
