@@ -14,5 +14,6 @@
 int get_interger(void);
 double get_float(void);
 char *get_string(char *str, int len);
+int getline(char * str, int len);
 
 #endif
