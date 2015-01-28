@@ -1,10 +1,25 @@
 #ifndef _LINUX_LIST_H
 #define _LINUX_LIST_H
 
+/*
 #include <linux/types.h>
 #include <linux/stddef.h>
 #include <linux/poison.h>
 #include <linux/const.h>
+*/
+
+struct list_head {
+	struct list_head *next, *prev;
+};
+
+struct hlist_head {
+	struct hlist_node *first;
+};
+
+struct hlist_node {
+	struct hlist_node *next, **pprev;
+};
+
 
 /*
  * Simple doubly linked list implementation.
