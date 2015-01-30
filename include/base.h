@@ -19,3 +19,5 @@
                 (b) = tmp;})
 
 #endif
+
+#define max_value_between(a, b) ((a) > (b) ? (a) : (b))
