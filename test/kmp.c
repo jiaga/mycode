@@ -87,12 +87,17 @@ void test_data()
 
         printf("Input T: ");
         get_str(t, LEN);
+<<<<<<< HEAD
         printf("%s\n", t);
         printf("Input P: ");
         get_str(p, LEN);
         printf("%s\n", p);
 
         printf("\n\n");
+=======
+        printf("Input P: ");
+        get_str(p, LEN);
+>>>>>>> a14ae4ad73146e8dad19bfb3cb56337dc1d72541
 
         find = kmp(t, p);
         if (find) {
