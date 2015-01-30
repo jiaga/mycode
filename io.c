@@ -62,8 +62,8 @@ char *get_string(char *str, int len)
                 return NULL;
         }
 }
-<<<<<<< HEAD
 
+/*
 int getline(char * str, int len)
 {
         int i = 0;
@@ -77,5 +77,4 @@ int getline(char * str, int len)
 
         return i;
 }
-=======
->>>>>>> a14ae4ad73146e8dad19bfb3cb56337dc1d72541
+*/

@@ -19,8 +19,5 @@
                 (b) = tmp;})
 
 #endif
-<<<<<<< HEAD
 
 #define max_value_between(a, b) ((a) > (b) ? (a) : (b))
-=======
->>>>>>> a14ae4ad73146e8dad19bfb3cb56337dc1d72541

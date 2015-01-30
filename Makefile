@@ -1,2 +1,2 @@
 clean:
-	rm *.o
+	rm *.o *.a
