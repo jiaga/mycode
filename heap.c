@@ -8,7 +8,7 @@
  ***************************************************************
  */
 
-#include "heap.h"
+#include "base.h"
 
 static int parent(int i)
 {
@@ -40,7 +40,7 @@ static void max_heapify(int *A, int i, const int heap_size)
         if (r < heap_size && A[r] > A[largest])
                 largest = r;
         if (largest != i) {
-                swap(&A[i], &A[largest]);
+                swap_type_of(int, A[i], A[largest]);
                 max_heapify(A, largest, heap_size);
         }
 }
@@ -54,14 +54,14 @@ static void build_max_heap(int *A, int n)
 }
 
 /***************************/
-static void heap_sort(int *A, int n)
+void heap_sort(int *A, int n)
 {
         int i;
         int heap_size = n;;
 
         build_max_heap(A, n);
         for (i = n-1; i > 0; i--) {
-                swap(&A[0], &A[i]);
+                swap_type_of(int, A[0], A[i]);
                 heap_size--;
                 max_heapify(A, 0, heap_size);
         }
@@ -95,7 +95,7 @@ static void heap_increase_key(int *A, int i, int key)
         } else {
                 A[i] = key;
                 while (i > 0 && A[parent(i)] < A[i]) {
-                        swap(&A[i], &A[parent(i)]);
+                        swap_type_of(int, A[i], A[parent(i)]);
                         i = parent(i);
                 }
         }

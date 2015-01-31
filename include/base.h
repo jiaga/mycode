@@ -11,6 +11,8 @@
 #ifndef _BASE_H_
 #define _BASE_H_
 
+#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
+
 /* 交换变量宏 */
 #define swap_type_of(type, a, b)({      \
                 type tmp;               \
@@ -18,6 +20,9 @@
                 (a) = (b);              \
                 (b) = tmp;})
 
-#endif
 
 #define max_value_between(a, b) ((a) > (b) ? (a) : (b))
+
+int printf_arr(int *arr, int start, int end);
+
+#endif
