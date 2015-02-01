@@ -9,8 +9,6 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "heap.h"
 #include "base.h"
 
@@ -21,10 +19,7 @@ int main(void)
         int arr[LEN];
         int i;
 
-        srand(time(0));
-        for (i = 0; i < LEN; i++) {
-                arr[i] = rand() % LEN;
-        }
+        init_data(arr, LEN, 0);
 
         printf_arr(arr, 0, LEN-1);
         heap_sort(arr, LEN);

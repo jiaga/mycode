@@ -24,5 +24,6 @@
 #define max_value_between(a, b) ((a) > (b) ? (a) : (b))
 
 int printf_arr(int *arr, int start, int end);
+void init_data(int* arr, int n, int init_type);
 
 #endif

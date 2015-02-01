@@ -13,9 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-
-#define RAND 0
-#define WORST_CASE 1
+#include "base.h"
 
 int get_argv(char** argv, int argc);
 int get_input_integer(void);
@@ -214,23 +212,6 @@ unsigned long get_sort_time(int* arr, int low, int high,
         run_time = 1000000 * (end.tv_sec - start.tv_sec) + 
                              (end.tv_usec - start.tv_usec);
         return run_time;
-}
-
-void init_data(int* arr, int n, int init_type)
-{
-        int i = 0;
-        int num = n;
-
-        if (init_type == RAND) {                /* 用随机数据初始化 */
-                while (i < n)
-                        arr[i++] = rand() % n;
-        } else if (init_type == WORST_CASE) {   /* 用逆序初始化     */
-
-                while (i < n)
-                        arr[i++] = num--;
-        } else {
-                /* 无变化 */
-        }
 }
 
 void print_int_arr(int *arr, int start, int end)
