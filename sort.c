@@ -66,18 +66,6 @@ void select_sort(int *arr, int len)
 }
 
 /* quicksort */
-static int partition(int *arr, int p, int r);
-void quicksort(int *arr, int p, int r)
-{
-        int q;
-
-        if (p < r) {
-                q = partition(arr, p, r);
-                quicksort(arr, p, q-1);
-                quicksort(arr, q+1, r);
-        }
-}
-
 static int partition(int *arr, int p, int r)
 {
         int x;
@@ -98,20 +86,19 @@ static int partition(int *arr, int p, int r)
         return i+1;
 }
 
-/* 归并排序 */
-static void merge(int *arr, int start, int middle, int end);
-void merge_sort(int *arr, int start, int end)
+void quicksort(int *arr, int p, int r)
 {
-        int middle;
+        int q;
 
-        if (start < end) {
-                middle = (start + end) / 2;
-                merge_sort(arr, start, middle);
-                merge_sort(arr, middle+1, end);
-                merge(arr, start, middle, end);
+        if (p < r) {
+                q = partition(arr, p, r);
+                quicksort(arr, p, q-1);
+                quicksort(arr, q+1, r);
         }
 }
 
+
+/* 归并排序 */
 static void merge(int *arr, int start, int middle, int end)
 {
         int i = start;
@@ -144,6 +131,18 @@ static void merge(int *arr, int start, int middle, int end)
                 free(tmp);
         } else
                 printf("malloc() error in merge()!\n");
+}
+
+void merge_sort(int *arr, int start, int end)
+{
+        int middle;
+
+        if (start < end) {
+                middle = (start + end) / 2;
+                merge_sort(arr, start, middle);
+                merge_sort(arr, middle+1, end);
+                merge(arr, start, middle, end);
+        }
 }
 /* 归并排序结束 */
 

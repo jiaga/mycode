@@ -87,7 +87,7 @@ static int heap_extract_max(int *A, int n, int heap_size)
         return max;
 }
 
-/* 更新关键字 */
+/* 更新关键字 在下标i之后*/
 static void heap_increase_key(int *A, int i, int key)
 {
         if (key < A[i]) {
@@ -100,3 +100,12 @@ static void heap_increase_key(int *A, int i, int key)
                 }
         }
 }
+
+/*
+static void max_heap_insert(int *A, int heap_size, int key)
+{
+        heap_size++;
+        A[heap_size] = -oo;
+        heap_increase_key(A, heap_size, key);
+}
+*/
