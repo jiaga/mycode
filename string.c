@@ -24,7 +24,7 @@ typedef struct mystring {
 }Str_node;
 typedef Str_node *Str_list;
 
-int add_to_list(Str_list *s_list, char *new_str)
+static int add_to_list(Str_list *s_list, char *new_str)
 {
         Str_node *new_node;
         Str_node *tmp = *s_list;
@@ -46,7 +46,7 @@ int add_to_list(Str_list *s_list, char *new_str)
         return 0;
 }
 
-void get_str_input(Str_list *s_list)
+static void get_str_input(Str_list *s_list)
 {
         int i = 0;
         char str[STRIOBUF];
@@ -65,7 +65,7 @@ void get_str_input(Str_list *s_list)
         add_to_list(s_list, str);
 }
 
-void free_list(Str_list *s_list)
+static void free_list(Str_list *s_list)
 {
         Str_node *tmp, *c_node;
 
@@ -78,7 +78,7 @@ void free_list(Str_list *s_list)
         *s_list = NULL;
 }
 
-void merge_str(Str_list *s_list, char *str)
+static void merge_str(Str_list *s_list, char *str)
 {
         Str_node *c_node;
 
@@ -89,7 +89,7 @@ void merge_str(Str_list *s_list, char *str)
         }
 }
 
-void InitializeList(Str_list *s_list)
+static void InitializeList(Str_list *s_list)
 {
         *s_list = NULL;
 }
@@ -121,18 +121,4 @@ char * get_str(void)
         str[len] = '\0';
 
         return str;
-}
-
-int main(void)
-{
-        char *str;
-
-        str = get_str();
-
-        printf("%s\n", str);
-        printf("strlen: %d\n", (int)strlen(str));
-
-        free(str);
-
-        return 0;
 }
