@@ -13,17 +13,17 @@
 #include "list.h"
 
 /* 局部函数原型 */
-static void CopyToNode(Item item, Node *pnode);
+static void copy_to_node(Item item, Node *pnode);
 
 /* 接口函数 */
 /* 把列表设置为空列表 */
-void InitializeList(List *plist)
+void initialize_list(List *plist)
 {
         *plist = NULL;
 }
 
 /* 如果列表为空则返回真 */
-bool ListIsEmpty(const List *plist)
+bool list_is_empty(const List *plist)
 {
         if (*plist == NULL)
                 return true;
@@ -32,7 +32,7 @@ bool ListIsEmpty(const List *plist)
 }
 
 /* 如果列表已满则返回真 */
-bool ListIsFull(const List *plist)
+bool list_is_full(const List *plist)
 {
         Node *pt = NULL;
         bool full;
@@ -49,7 +49,7 @@ bool ListIsFull(const List *plist)
 }
 
 /* 返回节点数 */
-unsigned int ListItemCount(const List *plist)
+unsigned int list_item_count(const List *plist)
 {
         unsigned int count = 0;
         Node *pnode = *plist;           /* 设置到列表的开始处 */
@@ -63,7 +63,7 @@ unsigned int ListItemCount(const List *plist)
 }
 
 /* 创建存放项目的节点，并把它添加到由plist 指向的列表（较慢的实现方法）尾部 */
-bool AddItem(Item item, List *plist)
+bool add_item(Item item, List *plist)
 {
         Node *pnew;
         Node *scan = *plist;
@@ -72,8 +72,10 @@ bool AddItem(Item item, List *plist)
         if (pnew == NULL)
                 return false;           /* 失败时退出函数 */
 
-        CopyToNode(item, pnew);
+        copy_to_node(item, pnew);
         pnew->next = NULL;
+        pnew->prev = NULL;
+
         if (scan == NULL)               /* 空列表，因此把 pnew 放在列头 */
                 *plist = pnew;
         else {
@@ -86,7 +88,7 @@ bool AddItem(Item item, List *plist)
 }
 
 /* 访问每个节点并对他们分别执行由 pfun 指向的函数 */
-void Traverse(const List *plist, void (*pfun)(Item item))
+void traverse(const List *plist, void (*pfun)(Item item))
 {
         Node *pnode = *plist;            /* 设置到列表的开始处 */
         while (pnode != NULL) {
@@ -96,7 +98,7 @@ void Traverse(const List *plist, void (*pfun)(Item item))
 }
 
 /* 释放由malloc()分配的内存， 把列表指针设置为 NULL */
-void EmptyTheList(List *plist)
+void empty_the_list(List *plist)
 {
         Node *psave;
         while (*plist != NULL) {
@@ -108,7 +110,7 @@ void EmptyTheList(List *plist)
 
 /* 局部函数定义 */
 /* 把一个项目复制到一个节点中 */
-static void CopyToNode(Item item, Node *pnode)
+static void copy_to_node(Item item, Node *pnode)
 {
         pnode->item = item;             /* 复制结构 */
 }
