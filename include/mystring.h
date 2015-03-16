@@ -1,19 +1,16 @@
 /*
  ***************************************************************
- * File Name:    io.h
+ * File Name:    mystring.h
  * Declaration:  
  * Author:       jiaga
  * Mail:         jiaga@qq.com
- * Created Time: 2015年01月09日 星期五 23时25分17秒
+ * Created Time: Mon 16 Feb 2015 09:07:12 AM CST
  ***************************************************************
  */
 
-#ifndef _IO_H_
-#define _IO_H_
+#ifndef __MYSTRING_H
+#define __MYSTRING_H
 
-int get_interger(void);
-double get_float(void);
-char *get_string(char *str, int len);
 char * get_str(void);
 
 #endif
