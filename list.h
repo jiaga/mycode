@@ -15,8 +15,10 @@
 /* 特定于程序的声明 */
 #define TSIZE 45        /* 存放片名的数组大小 */
 
+#define list_for_each()
+
 typedef struct item {
-	void * addr;
+	void * data_addr;
 	size_t len;
 }Item;
 
