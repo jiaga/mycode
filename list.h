@@ -16,7 +16,7 @@
 #define TSIZE 45        /* 存放片名的数组大小 */
 
 typedef struct item {
-	void * data_addr;
+	void * addr;
 	size_t len;
 }Item;
 
