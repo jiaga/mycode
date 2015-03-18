@@ -12,7 +12,6 @@
 #define _LISH_H_
 #include <stdbool.h>
 
-/* 特定于程序的声明 */
 typedef struct item {
 	void * addr;
 	size_t len;
@@ -25,7 +24,6 @@ typedef struct node {
 }Node;
 
 typedef Node * List;
-
 void initialize_list(List * plist);
 bool list_is_empty(const List * plist);
 bool list_is_full(const List *plist);

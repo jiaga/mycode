@@ -12,11 +12,10 @@
  ***************************************************************
  */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define STRIOBUF 10
+#define STRIOBUF 1024
 
 typedef struct mystring {
         char str[STRIOBUF];
@@ -93,6 +92,7 @@ static void InitializeList(Str_list *s_list)
 {
         *s_list = NULL;
 }
+
 char * get_str(void)
 {
         char *str;
