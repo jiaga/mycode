@@ -21,5 +21,6 @@ int main(void)
         printf("%s\n", str);
         printf("strlen(str): %d\n", strlen(str));
 
-        free(str);
+        if (str != NULL)
+                free(str);
 }

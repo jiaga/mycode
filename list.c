@@ -12,17 +12,13 @@
 #include <stdlib.h>
 #include "list.h"
 
-/* 局部函数原型 */
 static void copy_to_node(Item item, Node *pnode);
 
-/* 接口函数 */
-/* 把列表设置为空列表 */
 void initialize_list(List *plist)
 {
         *plist = NULL;
 }
 
-/* 如果列表为空则返回真 */
 bool list_is_empty(const List *plist)
 {
         if (*plist == NULL)
@@ -31,7 +27,6 @@ bool list_is_empty(const List *plist)
                 return false;
 }
 
-/* 如果列表已满则返回真 */
 bool list_is_full(const List *plist)
 {
         Node *pt = NULL;
@@ -48,7 +43,6 @@ bool list_is_full(const List *plist)
         return full;
 }
 
-/* 返回节点数 */
 unsigned int list_item_count(const List *plist)
 {
         unsigned int count = 0;
@@ -62,7 +56,6 @@ unsigned int list_item_count(const List *plist)
         return count;
 }
 
-/* 创建存放项目的节点，并把它添加到由plist 指向的列表（较慢的实现方法）尾部 */
 bool add_item(Item item, List *plist)
 {
         Node *pnew;
@@ -87,7 +80,6 @@ bool add_item(Item item, List *plist)
         return true;
 }
 
-/* 访问每个节点并对他们分别执行由 pfun 指向的函数 */
 void traverse(const List *plist, void (*pfun)(Item item))
 {
         Node *pnode = *plist;            /* 设置到列表的开始处 */
@@ -97,7 +89,6 @@ void traverse(const List *plist, void (*pfun)(Item item))
         }
 }
 
-/* 释放由malloc()分配的内存， 把列表指针设置为 NULL */
 void empty_the_list(List *plist)
 {
         Node *psave;
@@ -108,8 +99,6 @@ void empty_the_list(List *plist)
         }
 }
 
-/* 局部函数定义 */
-/* 把一个项目复制到一个节点中 */
 static void copy_to_node(Item item, Node *pnode)
 {
         pnode->item = item;             /* 复制结构 */
