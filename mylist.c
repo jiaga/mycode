@@ -22,5 +22,5 @@ struct l_node {
 typedef struct l_node * List;
 
 void init_list(List *list){
-
+        *list = NULL;
 }
