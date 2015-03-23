@@ -1,6 +1,6 @@
 /*
  ***************************************************************
- * File Name:    dblist.h
+ * File Name:    list.h
  * Declaration:  
  * Author:       jiaga
  * Mail:         jiaga@sina.com

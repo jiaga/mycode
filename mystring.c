@@ -1,6 +1,6 @@
 /*
  ***************************************************************
- * File Name:    get_s.c
+ * File Name:    mystring.c
  * Declaration:  
  * Author:       jiaga
  * Mail:         jiaga@qq.com
