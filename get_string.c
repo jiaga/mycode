@@ -13,7 +13,8 @@
 #include <string.h>
 #include "dblist.h"
 
-#define STRLEN 100
+#define STRLEN 10
+// #define STRLEN 100
 
 void *alloc_str(void)
 {
@@ -27,8 +28,8 @@ void print_str(void *str)
 
 /* 
  * 获取不定长度输入，遇到‘\n' 或 EOF 结束输入 
- * 返回字符串得指针
- * */
+ * 返回字符串得指针, 需要自己释放内存
+ */
 char * get_string()
 {
         char s[STRLEN];
@@ -63,7 +64,7 @@ char * get_string()
                 strcat(str, s);
         }
 
-        list_destroy(list);
+        list_destroy(&list);
 
         return str;
 }

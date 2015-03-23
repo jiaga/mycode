@@ -22,6 +22,15 @@
 #include <string.h>
 #include "dblist.h"
 
+static list_node_t * __alloc_node(list_t *list, void *user_data);
+static list_node_t * __insert_head(list_node_t *head, list_node_t *new_node);
+static list_node_t * __insert_tail(list_node_t *head, list_node_t *new_node);
+static list_node_t * __search_bwd(list_node_t *head, cmp_func_t cmp_func, void *key);
+static list_node_t * __search_fwd(list_node_t *head, cmp_func_t cmp_func, void *key);
+static list_node_t * __delete_node(list_node_t *node);
+static void __free_one_node(list_node_t *node);
+static void __free_all_node(list_t *list);
+
 static list_node_t * __alloc_node(list_t *list, void *user_data)
 {
         list_node_t *new_node;
@@ -149,10 +158,8 @@ extern int list_remove_specified(list_t *list, cmp_func_t cmp_func, void *key)
                 return -1;
         } else {
                 __delete_node(find);
-                if (find->user_data != NULL)
-                        free(find->user_data);
-                if (find != NULL)
-                        free(find);
+                __free_one_node(find);
+                list->cnt--;
                 return 0;
         }
 }
@@ -180,9 +187,12 @@ extern int list_insert_after(list_t *list, cmp_func_t cmp_func, void *key, void 
         find = __search_bwd(list->head, cmp_func, key);
         if (find == list->head) {
                 __insert_tail(list->head, new_node);
-                return -1;
+        } else {
+                __insert_head(find, new_node);
         }
-        __insert_head(find, new_node);
+        list->cnt++;
+
+        return 0;
 }
 
 extern int list_insert_before(list_t *list, cmp_func_t cmp_func, void *key, void *user_data)
@@ -197,9 +207,12 @@ extern int list_insert_before(list_t *list, cmp_func_t cmp_func, void *key, void
         find = __search_bwd(list->head, cmp_func, key);
         if (find == list->head) {
                 __insert_head(list->head, new_node);
-                return -1;
+        } else {
+                __insert_tail(find, new_node);
         }
-        __insert_tail(find, new_node);
+        list->cnt++;
+
+        return 0;
 }
 
 extern void list_traversal(list_t *list, traversal_func_t traversal_func)
@@ -258,13 +271,14 @@ static void __free_all_node(list_t *list)
         }
 }
 
-extern void list_destroy(list_t *list)
+extern void list_destroy(list_t **list)
 {
-        __free_all_node(list);
-        if (list->head != NULL)
-                free(list->head);
+        __free_all_node(*list);
+        if ((*list)->head != NULL)
+                free((*list)->head);
         if (list != NULL)
-                free(list);
+                free((*list));     /* list 仍指向原地址 此函数不能改为 NULL */
+        *list = NULL;
 }
 
 extern void list_remove_first_node(list_t *list, void *user_data)

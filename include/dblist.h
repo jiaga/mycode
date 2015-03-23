@@ -42,7 +42,7 @@ extern int list_insert_before(list_t *list, cmp_func_t cmp_func, void *key, void
 extern void list_traversal(list_t *list, traversal_func_t traversal_func);
 extern int list_insert_head(list_t *list, void *user_data);
 extern int list_insert_tail(list_t *list, void *user_data);
-extern void list_destroy(list_t *list);
+extern void list_destroy(list_t **list);
 extern void list_remove_first_node(list_t *list, void *user_data);
 extern void list_remove_last_node(list_t *list, void *user_data);
 
