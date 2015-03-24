@@ -52,11 +52,13 @@ char * get_string(void)
         len += strlen(s) + 1;
         list_insert_tail(list, s);
 
-        //list_traversal(list, print_str);
+        list_traversal(list, print_str);
 
         str = (char *)malloc(len);
-        if (str == NULL)
+        if (str == NULL) {
+                list_destroy(&list);
                 return NULL;
+        }
         str[0] = '\0';
         while(!list_is_empty(list)) {
                 list_remove_first_node(list, s);

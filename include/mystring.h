@@ -11,6 +11,6 @@
 #ifndef __MYSTRING_H
 #define __MYSTRING_H
 
-char * get_str(void);
+char * get_string(void);
 
 #endif

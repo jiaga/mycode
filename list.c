@@ -26,8 +26,7 @@ static list_node_t * __alloc_node(list_t *list, void *user_data);
 static list_node_t * __search_bwd(list_node_t *head, cmp_func_t cmp_func, void *key);
 static list_node_t * __search_fwd(list_node_t *head, cmp_func_t cmp_func, void *key);
 static list_node_t * __delete_node(list_node_t *node);
-static void __insert_head(list_node_t *head, list_node_t *new_node);
-static void __insert_tail(list_node_t *head, list_node_t *new_node);
+static void __insert_after(list_node_t *position, list_node_t *new_node);
 static void __free_one_node(list_node_t *node);
 static void __free_all_node(list_t *list);
 
@@ -79,20 +78,40 @@ extern int list_is_empty(list_t *list)
                 return 0;
 }
 
-static void __insert_head(list_node_t *head, list_node_t *new_node)
+static void __insert_after(list_node_t *position, list_node_t *new_node)
 {
-        new_node->next = head->next;
-        head->next->prev = new_node;
-        head->next = new_node;
-        new_node->prev = head;
+        new_node->next = position->next;
+        position->next->prev = new_node;
+        position->next = new_node;
+        new_node->prev = position;
 }
 
-static void  __insert_tail(list_node_t *head, list_node_t *new_node)
+extern int list_insert_head(list_t *list, void *user_data)
 {
-        new_node->prev = head->prev;
-        head->prev->next = new_node;
-        head->prev = new_node;
-        new_node->next = head;
+        list_node_t *new_node;
+
+        new_node = __alloc_node(list, user_data);
+        if (new_node == NULL)
+                return -1;
+
+        __insert_after(list->head, new_node);
+        list->cnt++;
+
+        return 0;
+}
+
+extern int list_insert_tail(list_t *list, void *user_data)
+{
+        list_node_t *new_node;
+
+        new_node = __alloc_node(list, user_data);
+        if (new_node == NULL)
+                return -1;
+
+        __insert_after(list->head->prev, new_node);
+        list->cnt++;
+
+        return 0;
 }
 
 /* 如果找到 返回该节点 否则返回head */
@@ -186,11 +205,9 @@ extern int list_insert_after(list_t *list, cmp_func_t cmp_func, void *key, void 
                 return -1;
 
         find = __search_bwd(list->head, cmp_func, key);
-        if (find == list->head) {
-                __insert_tail(list->head, new_node);
-        } else {
-                __insert_head(find, new_node);
-        }
+        if (find == list->head)
+                printf("list is empty, add to head now.\n");
+        __insert_after(find, new_node);
         list->cnt++;
 
         return 0;
@@ -206,11 +223,9 @@ extern int list_insert_before(list_t *list, cmp_func_t cmp_func, void *key, void
                 return -1;
 
         find = __search_bwd(list->head, cmp_func, key);
-        if (find == list->head) {
-                __insert_head(list->head, new_node);
-        } else {
-                __insert_tail(find, new_node);
-        }
+        if (find == list->head)
+                printf("list is empty, add to head now.\n");
+        __insert_after(find->prev, new_node);
         list->cnt++;
 
         return 0;
@@ -227,33 +242,7 @@ extern void list_traversal(list_t *list, traversal_func_t traversal_func)
         }
 }
 
-extern int list_insert_head(list_t *list, void *user_data)
-{
-        list_node_t *new_node;
 
-        new_node = __alloc_node(list, user_data);
-        if (new_node == NULL)
-                return -1;
-
-        __insert_head(list->head, new_node);
-        list->cnt++;
-
-        return 0;
-}
-
-extern int list_insert_tail(list_t *list, void *user_data)
-{
-        list_node_t *new_node;
-
-        new_node = __alloc_node(list, user_data);
-        if (new_node == NULL)
-                return -1;
-
-        __insert_tail(list->head, new_node);
-        list->cnt++;
-
-        return 0;
-}
 
 static void __free_one_node(list_node_t *node)
 {
