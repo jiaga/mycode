@@ -173,7 +173,7 @@ extern int list_remove_specified(list_t *list, cmp_func_t cmp_func, void *key)
 
         find = __search_bwd(list->head, cmp_func, key);
         if (find == list->head) {
-                printf("Data is not in list!\n");
+                printf("Key data is not in list!\n");
                 return -1;
         } else {
                 __delete_node(find);
@@ -206,7 +206,7 @@ extern int list_insert_after(list_t *list, cmp_func_t cmp_func, void *key, void 
 
         find = __search_bwd(list->head, cmp_func, key);
         if (find == list->head)
-                printf("list is empty, add to head now.\n");
+                printf("key data is not in list. add data to head.\n");
         __insert_after(find, new_node);
         list->cnt++;
 
@@ -224,7 +224,7 @@ extern int list_insert_before(list_t *list, cmp_func_t cmp_func, void *key, void
 
         find = __search_bwd(list->head, cmp_func, key);
         if (find == list->head)
-                printf("list is empty, add to head now.\n");
+                printf("key data is not in list. add data to tail.\n");
         __insert_after(find->prev, new_node);
         list->cnt++;
 
